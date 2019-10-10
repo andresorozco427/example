@@ -35,17 +35,18 @@ pipeline {
                echo "------------>Integration Tests<------------"
            }
        }
-       stage('Static Code Analysis') {
-      		environment {
-	      	    scannerHome : tool 'Scanner 4.2.0'
-	     	 }
-           steps{
-               echo '------------>Analisis de codigo estatico<------------'
-               withSonarQubeEnv('Sonar') {
-                   bat "\"${scannerHome}/bin/sonar-scanner.bat\""
-           }
-       }
-   	   }
+       
+      stage('Analisis de codigo statico'){
+				environment {
+				    scannerHome = tool 'Scanner 4.2.0'
+				}
+			   steps{
+	               echo '------------>Analisis de codigo estatico<------------'
+	               withSonarQubeEnv('SonarQube') {
+	                   bat "\"${scannerHome}/bin/sonar-scanner.bat\""
+	               }	
+	           }			
+		}
    
        stage('Build') {
            steps {
