@@ -75,6 +75,7 @@ pipeline {
 	   post {
 	         always {
 	             echo 'This will always run'
+	             archiveArtifacts artifacts: 'jmterTest/*.jtl', onlyIfSuccessful: true
 	         }
 	         success {
 	             echo 'This will run only if successful'
