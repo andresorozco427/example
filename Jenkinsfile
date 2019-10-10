@@ -69,8 +69,7 @@ pipeline {
                bat 'gradle --b ./aplicacion/build.gradle build -x test'
                bat 'gradle --b ./dominio/build.gradle build -x test'
            } 
-       }
-   }
+       }   
  
 	   post {
 	         always {
@@ -85,6 +84,5 @@ pipeline {
 	 		mail (to: 'andres.orozco@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",
 	 		body: "Something is wrongwith ${env.BUILD_URL}")
 	 		}
-		 }
-	       
-  }
+		 }	       
+  	}
