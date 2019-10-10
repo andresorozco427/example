@@ -59,8 +59,8 @@ pipeline {
 					echo '...........Jmeter pruebas de carga.................'
 					bat 'C:/Users/andres.orozco/Downloads/apache-jmeter-5.1.1/apache-jmeter-5.1.1/bin/jmeter.bat -n -t C:/Users/andres.orozco/Documents/Response-Assertion.jmx -l resultTest.jtl'			
 			    }
-			}			
-		}	
+		}			
+			
    
        stage('Build') {
            steps {
@@ -84,5 +84,6 @@ pipeline {
 	 		mail (to: 'andres.orozco@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",
 	 		body: "Something is wrongwith ${env.BUILD_URL}")
 	 		}
-		 }	       
+		 }	  
+		}     
   	}
