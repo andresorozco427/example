@@ -1,7 +1,5 @@
 pipeline {
-   agent {
-       label 'Slave_Induccion'
-   }
+   agent any
    
    options {
        buildDiscarder(logRotator(numToKeepStr: '3'))
@@ -16,10 +14,8 @@ pipeline {
                         branches: [[name: '*/master']],
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [],
-                        gitTool:'Git_Centos',
                         submoduleCfg: [],
-                        userRemoteConfigs: [[credentialsId:'GitHub_andres0218',
-                        url:'https://github.com/andresorozco427/BODEGA_ADN_CEIBA.git']]])
+                        url:'https://github.com/andresorozco427/example.git'])
            }  
        }
        stage('Unit Tests') {
