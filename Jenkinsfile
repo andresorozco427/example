@@ -32,16 +32,6 @@ pipeline {
            }
        }
        
-       	stage('levantar Servidor SonarQube'){
-			steps{
-				script{
-					dir("C:/sonarqube-7.9.1/sonarqube-7.9.1/bin/windows-x86-64"){
-					  	bat "StartSonar.bat"
-					}					
-				}
-			}
-		}
-       
       stage('Analisis de codigo statico'){
 				environment {
 				    scannerHome = tool 'Scanner 4.2.0'
@@ -75,7 +65,6 @@ pipeline {
 	   post {
 	         always {
 	             echo 'This will always run'
-	             archiveArtifacts artifacts: 'jmterTest/*.jtl', onlyIfSuccessful: true
 	         }
 	         success {
 	             echo 'This will run only if successful'
