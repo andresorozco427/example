@@ -32,6 +32,16 @@ pipeline {
            }
        }
        
+       	stage('levantar Servidor SonarQube'){
+			steps{
+				script{
+					dir("C:/sonarqube-7.9.1/sonarqube-7.9.1/bin/windows-x86-64"){
+					  	bat "StartSonar.bat"
+					}					
+				}
+			}
+		}
+       
       stage('Analisis de codigo statico'){
 				environment {
 				    scannerHome = tool 'Scanner 4.2.0'
@@ -42,7 +52,12 @@ pipeline {
 	                   bat "\"${scannerHome}/bin/sonar-scanner.bat\""
 	               }	
 	           }			
-		}
+		}	
+		
+		stage('Pruebas de carga con Jmeter'){
+			echo '...........Jmeter pruebas de carga.................'
+			bat 'C:/Users/andres.orozco/Downloads/apache-jmeter-5.1.1/apache-jmeter-5.1.1/bin/jmeter.bat -n -t C:/Users/andres.orozco/Documents/Response-Assertion.jmx -l resultTest.jtl'
+		}	
    
        stage('Build') {
            steps {
