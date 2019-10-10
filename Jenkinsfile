@@ -57,7 +57,7 @@ pipeline {
 		stage('Pruebas de carga con Jmeter'){
 			steps{
 					echo '...........Jmeter pruebas de carga.................'
-					bat 'C:/Users/andres.orozco/Downloads/apache-jmeter-5.1.1/apache-jmeter-5.1.1/bin/jmeter.bat -n -t C:/Users/andres.orozco/Documents/Response-Assertion.jmx -l resultTest.jtl'			
+					bat 'C:/Users/andres.orozco/Downloads/apache-jmeter-5.1.1/apache-jmeter-5.1.1/bin/jmeter.bat -n -t C:/Users/andres.orozco/Documents/Response-Assertion.jmx -l resultTest.jtl'							
 			    }
 		}			
 			
@@ -79,6 +79,7 @@ pipeline {
 	         success {
 	             echo 'This will run only if successful'
 	             junit '**/build/test-results/test/*.xml'
+	             perfReport filterRegex: '', sourceDataFiles: '**/*.jtl'
 	         }
 		         failure {
 	 		echo 'This will run only if failed' 
