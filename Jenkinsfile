@@ -8,11 +8,6 @@ pipeline {
        disableConcurrentBuilds()
    }
    
-   tools {
-       jdk 'JDK8_Centos'
-       gradle 'Gradle4.5_Centos'
-   }
-   
    stages{
        stage('Checkout') {
            steps{ 
@@ -30,9 +25,9 @@ pipeline {
        stage('Unit Tests') {
            steps{
                echo "------------>Unit Tests<------------"
-               sh 'gradle --b ./infraestructura/build.gradle test'
-               sh 'gradle --b ./aplicacion/build.gradle test'
-               sh 'gradle --b ./dominio/build.gradle test'
+               bat 'gradle --b ./infraestructura/build.gradle test'
+               bat 'gradle --b ./aplicacion/build.gradle test'
+               bat 'gradle --b ./dominio/build.gradle test'
            }
        }
        stage('Integration Tests') {
@@ -41,19 +36,23 @@ pipeline {
            }
        }
        stage('Static Code Analysis') {
+      		environment {
+	      	    scannerHome : tool 'Scanner 4.2.0'
+	     	 }
            steps{
                echo '------------>Analisis de codigo estatico<------------'
                withSonarQubeEnv('Sonar') {
-                   sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"}
+                   bat "\"${scannerHome}/bin/sonar-scanner.bat\""
            }
        }
+   	   }
    
        stage('Build') {
            steps {
                echo "------------>Build<------------"
-               sh 'gradle --b ./infraestructura/build.gradle build -x test'
-               sh 'gradle --b ./aplicacion/build.gradle build -x test'
-               sh 'gradle --b ./dominio/build.gradle build -x test'
+               bat 'gradle --b ./infraestructura/build.gradle build -x test'
+               bat 'gradle --b ./aplicacion/build.gradle build -x test'
+               bat 'gradle --b ./dominio/build.gradle build -x test'
            } 
        }
    }

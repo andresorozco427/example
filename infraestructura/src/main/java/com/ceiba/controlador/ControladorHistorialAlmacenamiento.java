@@ -60,7 +60,7 @@ public class ControladorHistorialAlmacenamiento {
 		return this.manejadorSalidaContenedor.retirarAlmacenamientoContenedor(historialAlmacenamiento);
 	}
 	
-	@Scheduled(fixedRate = 1000)
+	@Scheduled(fixedRate = 300000)
 	public void cambioDeBodegaCotenendoresPerecederosCaducados() {
 		List<HistorialAlmacenamiento> listaContenedores = this.manejadorConsultasContenedor.listarContenedoresAlmacenados();
 		this.manejadorSalidaContenedor.consultaHistorialAlmacenamientoContenedoresPerecederos(listaContenedores);
