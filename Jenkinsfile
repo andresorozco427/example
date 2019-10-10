@@ -55,8 +55,11 @@ pipeline {
 		}	
 		
 		stage('Pruebas de carga con Jmeter'){
-			echo '...........Jmeter pruebas de carga.................'
-			bat 'C:/Users/andres.orozco/Downloads/apache-jmeter-5.1.1/apache-jmeter-5.1.1/bin/jmeter.bat -n -t C:/Users/andres.orozco/Documents/Response-Assertion.jmx -l resultTest.jtl'
+			steps{
+					echo '...........Jmeter pruebas de carga.................'
+					bat 'C:/Users/andres.orozco/Downloads/apache-jmeter-5.1.1/apache-jmeter-5.1.1/bin/jmeter.bat -n -t C:/Users/andres.orozco/Documents/Response-Assertion.jmx -l resultTest.jtl'			
+			    }
+			}			
 		}	
    
        stage('Build') {
